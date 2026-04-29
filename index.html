@@ -15,15 +15,8 @@ color:#fff;
 min-height:100vh;
 }
 
-/* RESPONSIVE CONTAINER */
-.container{
-max-width:1400px;
-margin:auto;
-padding:25px;
-width:100%;
-}
+.container{max-width:1400px;margin:auto;padding:25px;}
 
-/* HEADER */
 .header{
 background:rgba(255,255,255,0.05);
 border:1px solid rgba(255,255,255,0.08);
@@ -33,44 +26,37 @@ padding:25px;
 display:flex;
 gap:18px;
 align-items:center;
-flex-wrap:wrap;
 }
 
 .logo{
-width:75px;
-height:75px;
+width:75px;height:75px;
 border-radius:50%;
 object-fit:cover;
 border:3px solid #38bdf8;
-max-width:100%;
 }
 
 .header h1{font-size:32px;font-weight:800;}
-.sub{color:#94a3b8;margin-top:5px;}
 
-/* GRID RESPONSIVE */
 .grid{
 margin-top:22px;
 display:grid;
-grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+grid-template-columns:repeat(auto-fit,minmax(340px,1fr));
 gap:20px;
 }
 
-/* CARDS */
 .card{
 background:rgba(255,255,255,0.05);
 border:1px solid rgba(255,255,255,0.08);
 backdrop-filter:blur(12px);
 border-radius:22px;
 padding:20px;
-overflow:hidden;
 }
 
 .card h2{color:#38bdf8;margin-bottom:15px;}
 
 label{display:block;margin:10px 0 6px;font-weight:600;}
 
-input[type=range]{width:100%;accent-color:#38bdf8;}
+input[type=range]{width:100%;accent-color:#38bdf8;cursor:pointer;}
 
 .bar{height:10px;background:#1f2937;border-radius:8px;overflow:hidden;}
 
@@ -78,55 +64,70 @@ input[type=range]{width:100%;accent-color:#38bdf8;}
 
 .value{color:#cbd5e1;margin-top:4px;}
 
-/* ENGINE IMAGE */
-.engine{
-width:100%;
-max-width:100%;
-border-radius:15px;
-margin-bottom:12px;
+.engine{width:100%;border-radius:15px;margin-bottom:12px;}
+
+/* --- ACCURATE GAUGE SYSTEM --- */
+.gauge{
+width:280px;height:280px;border-radius:50%;
+background:#020617;
+border: 10px solid #334155;
+position:relative;margin:auto;
+box-shadow: inset 0 0 20px #000;
 }
 
-/* GAUGE RESPONSIVE */
-.gauge{
-width:250px;
-height:250px;
-max-width:90vw;
-max-height:90vw;
-border-radius:50%;
-background:radial-gradient(circle,#020617 55%,#334155 56%,#0f172a 65%,#475569 66%,#0f172a 72%);
-position:relative;
-margin:auto;
+.gauge-scale {
+    position: absolute;
+    width: 100%; height: 100%;
 }
+
+.num { 
+    position: absolute; 
+    width: 100%; height: 100%;
+    text-align: center;
+    padding-top: 15px;
+    font-weight: 800;
+    color: #475569;
+    font-size: 14px;
+}
+
+/* Rotation markers */
+.n0    { transform: rotate(-130deg); }
+.n200  { transform: rotate(-78deg); }
+.n400  { transform: rotate(-26deg); }
+.n600  { transform: rotate(26deg); }
+.n800  { transform: rotate(78deg); }
+.n1000 { transform: rotate(130deg); }
+
+.num span { display: inline-block; }
+.n0 span { transform: rotate(130deg); }
+.n200 span { transform: rotate(78deg); }
+.n400 span { transform: rotate(26deg); }
+.n600 span { transform: rotate(-26deg); }
+.n800 span { transform: rotate(-78deg); }
+.n1000 span { transform: rotate(-130deg); }
 
 .needle{
 position:absolute;
-width:110px;
-height:4px;
-background:#ef4444;
-top:123px;
-left:125px;
-transform-origin:left center;
+width:110px;height:4px;
+background:linear-gradient(90deg, #ef4444 80%, transparent 100%);
+top:138px;left:140px; 
+transform-origin: 0% 50%;
 transform:rotate(-130deg);
+transition: transform 0.4s ease-out;
+z-index: 5;
+border-radius: 4px;
 }
 
 .center-dot{
-position:absolute;
-width:18px;
-height:18px;
-background:#fff;
-border-radius:50%;
-top:116px;
-left:116px;
+position:absolute;width:24px;height:24px;
+background:#f8fafc;border-radius:50%;
+top:128px;left:128px;
+z-index: 10;
+border: 4px solid #0f172a;
 }
 
-.big{
-font-size:36px;
-font-weight:800;
-text-align:center;
-margin-top:10px;
-}
+.big{font-size:42px;font-weight:900;text-align:center;margin-top:15px; color:#38bdf8;}
 
-/* WARNING */
 .warning{
 margin-top:12px;
 padding:12px;
@@ -136,9 +137,12 @@ background:#7f1d1d;
 color:#fecaca;
 display:none;
 font-weight:700;
+animation: blink 0.8s infinite;
 }
 
-/* LOGIC */
+@keyframes blink { 50% { opacity: 0.4; } }
+
+/* FADEC LOGIC RESTORED STYLE */
 .logic p{
 line-height:1.7;
 margin-bottom:10px;
@@ -150,125 +154,19 @@ color:#22d3ee;
 font-weight:700;
 }
 
-/* SWITCH */
-.switchBox{
-display:flex;
-justify-content:center;
-align-items:center;
-gap:10px;
-margin-top:15px;
-flex-wrap:wrap;
-}
-
-.switch{
-width:70px;
-height:34px;
-background:#334155;
-border-radius:50px;
-position:relative;
-cursor:pointer;
-}
-
-.knob{
-width:28px;
-height:28px;
-background:#fff;
-border-radius:50%;
-position:absolute;
-top:3px;
-left:4px;
-transition:.3s;
-}
-
+.switchBox{ display:flex; justify-content:center; align-items:center; gap:10px; margin:20px 0; }
+.switch{ width:70px;height:34px; background:#334155; border-radius:50px; position:relative; cursor:pointer; }
+.knob{ width:28px;height:28px; background:#fff; border-radius:50%; position:absolute; top:3px;left:4px; transition:.3s; }
 .switch.active{background:#22c55e;}
 .switch.active .knob{left:38px;}
 
-/* STATUS */
-.statusBox{text-align:center;margin-top:20px;}
+.statusMain{ padding:16px; border-radius:12px; font-weight:900; background:#334155; text-align:center; }
 
-.statusMain{
-padding:16px;
-border-radius:12px;
-font-weight:900;
-background:linear-gradient(90deg,#22c55e,#16a34a);
-}
+.members ul{ list-style:none; }
+.members li{ padding:8px 0; border-bottom:1px solid rgba(255,255,255,.08); }
 
-/* MEMBERS */
-.members ul{list-style:none;}
-
-.members li{
-padding:8px 0;
-border-bottom:1px solid rgba(255,255,255,.08);
-}
-
-/* CODE */
-pre{
-background:#020617;
-color:#38bdf8;
-padding:15px;
-border-radius:15px;
-overflow:auto;
-max-height:300px;
-font-size:12px;
-}
-
-/* FOOTER */
-.footer{
-text-align:center;
-margin-top:25px;
-color:#64748b;
-}
-
-/* ---------------- RESPONSIVE BREAKPOINTS ---------------- */
-
-@media (max-width:1024px){
-.header h1{font-size:26px;}
-}
-
-@media (max-width:768px){
-.container{padding:15px;}
-
-.header{
-flex-direction:column;
-text-align:center;
-}
-
-.header h1{font-size:22px;}
-
-.grid{
-grid-template-columns:1fr;
-}
-
-.big{font-size:28px;}
-
-.needle{
-width:90px;
-}
-}
-
-@media (max-width:480px){
-.header h1{font-size:20px;}
-
-.logo{
-width:60px;
-height:60px;
-}
-
-.card{
-padding:15px;
-}
-
-.gauge{
-width:200px;
-height:200px;
-}
-
-.big{font-size:24px;}
-
-pre{
-font-size:11px;
-}
-}
+pre{ background:#020617; color:#38bdf8; padding:15px; border-radius:15px; overflow:auto; max-height:300px; }
+.footer{text-align:center;margin-top:25px;color:#64748b;}
 
 </style>
 </head>
@@ -281,7 +179,7 @@ font-size:11px;
 <img src="dprlogo.jpg" class="logo">
 <div>
 <h1>FADEC Control System Dashboard</h1>
-<p class="sub"></p>
+<p style="color:#94a3b8"></p>
 </div>
 </div>
 
@@ -300,7 +198,7 @@ font-size:11px;
 <img class="engine" src="gep.jpeg">
 
 <label>Throttle</label>
-<input type="range" id="throttle" min="0" max="100" value="50">
+<input type="range" id="throttle" min="0" max="100" value="0">
 
 <label>Air Flow</label>
 <div class="value" id="airTxt">0</div>
@@ -324,27 +222,38 @@ font-size:11px;
 <div class="logic">
 <p><span>Fuel Flow Formula:</span> Wf = Wa / 15</p>
 <p>The system automatically adjusts fuel based on airflow demand for efficient combustion.</p>
+
 <p><span>Throttle Response:</span></p>
 <p>Increasing throttle raises engine RPM, airflow, and fuel injection rate.</p>
+
 <p><span>Fan & Compressor Control:</span></p>
 <p>FADEC regulates N1 fan speed to maintain stable thrust output.</p>
+
 <p><span>Thermal Protection:</span></p>
 <p>If exhaust temperature exceeds safe limits, the system triggers warnings and limits performance.</p>
+
 <p><span>System Intelligence:</span></p>
 <p>All calculations are handled digitally in real-time for safety and efficiency.</p>
 </div>
 </div>
 
 <div class="card">
-<h2>3. Engine Output</h2>
+<h2>3. Engine Output (EGT)</h2>
 
 <div class="gauge">
-<div class="needle" id="needle"></div>
-<div class="center-dot"></div>
+    <div class="gauge-scale">
+        <div class="num n0"><span>0</span></div>
+        <div class="num n200"><span>200</span></div>
+        <div class="num n400"><span>400</span></div>
+        <div class="num n600"><span>600</span></div>
+        <div class="num n800"><span>800</span></div>
+        <div class="num n1000"><span>1000</span></div>
+    </div>
+    <div class="needle" id="needle"></div>
+    <div class="center-dot"></div>
 </div>
 
 <div class="big"><span id="egtTxt">0</span>°C</div>
-
 <div class="warning" id="warnBox">OVERHEAT WARNING</div>
 </div>
 
@@ -378,57 +287,64 @@ font-size:11px;
 
 <script>
 
-let engineOn=false;
+let engineOn = false;
 
-function toggleEngine(){
-engineOn=!engineOn;
-document.getElementById("engineSwitch").classList.toggle("active");
-sim();
+function toggleEngine() {
+    engineOn = !engineOn;
+    document.getElementById("engineSwitch").classList.toggle("active");
+    sim();
 }
 
-function sim(){
+function sim() {
+    let t = engineOn ? +document.getElementById("throttle").value : 0;
 
-let t=engineOn?+document.getElementById("throttle").value:0;
+    let air = t * 2.5;
+    let fuel = air / 15;
+    let fan = t * 95;
+    let temp = engineOn ? (200 + (t * 6)) : 0; 
+    let egt = temp;
 
-let air=t*2;
-let fuel=air/15;
-let fan=t*90;
-let temp=200+t*6;
-let egt=temp;
+    document.getElementById("airTxt").textContent = air.toFixed(1);
+    document.getElementById("fuelTxt").textContent = fuel.toFixed(2);
+    document.getElementById("fanTxt").textContent = fan.toFixed(0);
+    document.getElementById("tempTxt").textContent = temp.toFixed(1);
+    document.getElementById("egtTxt").textContent = egt.toFixed(0);
 
-document.getElementById("airTxt").textContent=air.toFixed(1);
-document.getElementById("fuelTxt").textContent=fuel.toFixed(2);
-document.getElementById("fanTxt").textContent=fan.toFixed(0);
-document.getElementById("tempTxt").textContent=temp.toFixed(1);
-document.getElementById("egtTxt").textContent=egt.toFixed(0);
+    document.getElementById("airBar").style.width = t + "%";
+    document.getElementById("fuelBar").style.width = (t * 0.9) + "%";
+    document.getElementById("fanBar").style.width = t + "%";
+    document.getElementById("tempBar").style.width = (egt/10) + "%";
 
-document.getElementById("airBar").style.width=t+"%";
-document.getElementById("fuelBar").style.width=(t*0.8)+"%";
-document.getElementById("fanBar").style.width=Math.min(fan/100,100)+"%";
-document.getElementById("tempBar").style.width=Math.min(temp/8,100)+"%";
+    let angle = -130 + (Math.min(egt, 1000) / 1000) * 260;
+    document.getElementById("needle").style.transform = `rotate(${angle}deg)`;
 
-let angle=-130+(Math.min(egt,1400)/1400)*260;
-document.getElementById("needle").style.transform="rotate("+angle+"deg)";
+    const numbers = document.querySelectorAll('.num');
+    numbers.forEach((n, idx) => {
+        let limit = idx * 200;
+        n.style.color = (egt >= limit && engineOn) ? "#38bdf8" : "#475569";
+    });
 
-let status=document.getElementById("topStatus");
+    let status = document.getElementById("topStatus");
+    let warn = document.getElementById("warnBox");
 
-if(!engineOn){
-status.textContent="ENGINE OFF";
-document.getElementById("warnBox").style.display="none";
+    if (!engineOn) {
+        status.textContent = "ENGINE OFF";
+        status.style.background = "#334155";
+        warn.style.display = "none";
+    } else if (egt > 700) {
+        status.textContent = "CRITICAL: OVERHEAT";
+        status.style.background = "#7f1d1d";
+        warn.style.display = "block";
+    } else {
+        status.textContent = "SYSTEM NORMAL: RUNNING";
+        status.style.background = "#16a34a";
+        warn.style.display = "none";
+    }
+
+    document.getElementById("code").textContent = document.documentElement.outerHTML;
 }
-else if(egt>700){
-status.textContent="OVERHEAT WARNING";
-document.getElementById("warnBox").style.display="block";
-}
-else{
-status.textContent="ENGINE RUNNING NORMAL";
-document.getElementById("warnBox").style.display="none";
-}
 
-document.getElementById("code").textContent=document.documentElement.outerHTML;
-}
-
-document.getElementById("throttle").addEventListener("input",sim);
+document.getElementById("throttle").addEventListener("input", sim);
 sim();
 
 </script>
