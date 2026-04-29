@@ -15,98 +15,149 @@ color:#fff;
 min-height:100vh;
 }
 
-.container{max-width:1400px;margin:auto;padding:25px;}
+/* RESPONSIVE CONTAINER */
+.container{
+max-width:1400px;
+margin:auto;
+padding:clamp(12px,3vw,25px);
+}
 
+/* HEADER */
 .header{
 background:rgba(255,255,255,0.05);
 border:1px solid rgba(255,255,255,0.08);
 backdrop-filter:blur(12px);
 border-radius:25px;
-padding:25px;
+padding:20px;
 display:flex;
-gap:18px;
+gap:15px;
 align-items:center;
+flex-wrap:wrap;
 }
 
 .logo{
-width:75px;height:75px;
+width:70px;
+height:70px;
 border-radius:50%;
 object-fit:cover;
 border:3px solid #38bdf8;
 }
 
-.header h1{font-size:32px;font-weight:800;}
+.header h1{
+font-size:clamp(20px,3vw,32px);
+font-weight:800;
+}
+
 .sub{color:#94a3b8;margin-top:5px;}
 
+/* GRID RESPONSIVE */
 .grid{
 margin-top:22px;
 display:grid;
-grid-template-columns:repeat(auto-fit,minmax(340px,1fr));
-gap:20px;
+grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+gap:15px;
 }
 
+/* CARD */
 .card{
 background:rgba(255,255,255,0.05);
 border:1px solid rgba(255,255,255,0.08);
 backdrop-filter:blur(12px);
 border-radius:22px;
-padding:20px;
+padding:15px;
+overflow:hidden;
 }
 
-.card h2{color:#38bdf8;margin-bottom:15px;}
+.card h2{
+color:#38bdf8;
+margin-bottom:12px;
+font-size:clamp(16px,2vw,20px);
+}
 
-label{display:block;margin:10px 0 6px;font-weight:600;}
+/* IMAGE RESPONSIVE */
+.engine{
+width:100%;
+max-width:100%;
+border-radius:15px;
+margin-bottom:10px;
+display:block;
+}
 
-input[type=range]{width:100%;accent-color:#38bdf8;}
+/* INPUTS */
+label{display:block;margin:10px 0 6px;font-weight:600;font-size:14px;}
 
-.bar{height:10px;background:#1f2937;border-radius:8px;overflow:hidden;}
+input[type=range]{
+width:100%;
+accent-color:#38bdf8;
+}
 
-.fill{height:100%;width:0;background:linear-gradient(90deg,#38bdf8,#06b6d4);transition:.3s;}
+/* BAR */
+.bar{
+height:10px;
+background:#1f2937;
+border-radius:8px;
+overflow:hidden;
+}
 
-.value{color:#cbd5e1;margin-top:4px;}
+.fill{
+height:100%;
+width:0;
+background:linear-gradient(90deg,#38bdf8,#06b6d4);
+transition:.3s;
+}
 
-.engine{width:100%;border-radius:15px;margin-bottom:12px;}
+.value{color:#cbd5e1;margin-top:4px;font-size:13px;}
 
-.gauge{width:250px;height:250px;border-radius:50%;
+/* GAUGE RESPONSIVE */
+.gauge{
+width:clamp(180px,60vw,250px);
+height:clamp(180px,60vw,250px);
+border-radius:50%;
 background:radial-gradient(circle,#020617 55%,#334155 56%,#0f172a 65%,#475569 66%,#0f172a 72%);
-position:relative;margin:auto;}
+position:relative;
+margin:auto;
+}
 
 .needle{
-position:absolute;width:110px;height:4px;
-background:#ef4444;top:123px;left:125px;
+position:absolute;
+width:50%;
+height:4px;
+background:#ef4444;
+top:50%;
+left:50%;
 transform-origin:left center;
 transform:rotate(-130deg);
 }
 
 .center-dot{
-position:absolute;width:18px;height:18px;
-background:#fff;border-radius:50%;
-top:116px;left:116px;
+position:absolute;
+width:16px;
+height:16px;
+background:#fff;
+border-radius:50%;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
 }
 
-.big{font-size:36px;font-weight:800;text-align:center;margin-top:10px;}
+.big{
+font-size:clamp(20px,4vw,36px);
+font-weight:800;
+text-align:center;
+margin-top:10px;
+}
 
+/* WARNING */
 .warning{
 margin-top:12px;
-padding:12px;
+padding:10px;
 border-radius:10px;
 text-align:center;
 background:#7f1d1d;
 color:#fecaca;
 display:none;
 font-weight:700;
-}
-
-/* FADEC LOGIC RESTORED STYLE */
-.logic p{
-line-height:1.7;
-margin-bottom:10px;
-color:#e2e8f0;
-}
-
-.logic span{
-color:#22d3ee;
-font-weight:700;
+font-size:14px;
 }
 
 /* SWITCH */
@@ -116,10 +167,12 @@ justify-content:center;
 align-items:center;
 gap:10px;
 margin-top:15px;
+flex-wrap:wrap;
 }
 
 .switch{
-width:70px;height:34px;
+width:65px;
+height:32px;
 background:#334155;
 border-radius:50px;
 position:relative;
@@ -127,51 +180,76 @@ cursor:pointer;
 }
 
 .knob{
-width:28px;height:28px;
+width:26px;
+height:26px;
 background:#fff;
 border-radius:50%;
 position:absolute;
-top:3px;left:4px;
+top:3px;
+left:4px;
 transition:.3s;
 }
 
 .switch.active{background:#22c55e;}
-.switch.active .knob{left:38px;}
+.switch.active .knob{left:36px;}
 
 /* STATUS */
 .statusBox{text-align:center;margin-top:20px;}
+
 .statusMain{
-padding:16px;
+padding:14px;
 border-radius:12px;
 font-weight:900;
 background:linear-gradient(90deg,#22c55e,#16a34a);
+font-size:14px;
 }
 
-/* MEMBERS RESTORED */
-.members{
-margin-top:20px;
-}
-
-.members ul{
-list-style:none;
-}
+/* MEMBERS */
+.members ul{list-style:none;}
 
 .members li{
-padding:8px 0;
+padding:6px 0;
 border-bottom:1px solid rgba(255,255,255,.08);
+font-size:14px;
 }
 
+/* CODE */
 pre{
 background:#020617;
 color:#38bdf8;
-padding:15px;
+padding:12px;
 border-radius:15px;
 overflow:auto;
-max-height:300px;
+max-height:250px;
+font-size:12px;
 }
 
-.footer{text-align:center;margin-top:25px;color:#64748b;}
+/* FOOTER */
+.footer{
+text-align:center;
+margin-top:20px;
+color:#64748b;
+font-size:12px;
+}
 
+/* MOBILE FIX */
+@media (max-width:600px){
+
+.header{
+flex-direction:column;
+text-align:center;
+}
+
+.logo{
+width:60px;
+height:60px;
+}
+
+.switchBox{
+gap:5px;
+}
+
+}
 </style>
 </head>
 
@@ -187,7 +265,6 @@ max-height:300px;
 </div>
 </div>
 
-<!-- ENGINE SWITCH -->
 <div class="switchBox">
 <span>OFF</span>
 <div class="switch" id="engineSwitch" onclick="toggleEngine()">
@@ -198,7 +275,6 @@ max-height:300px;
 
 <div class="grid">
 
-<!-- INPUT -->
 <div class="card">
 <h2>1. Engine Inputs</h2>
 <img class="engine" src="gep.jpeg">
@@ -223,30 +299,14 @@ max-height:300px;
 <div class="bar"><div class="fill" id="tempBar"></div></div>
 </div>
 
-<!-- FADEC LOGIC RESTORED -->
 <div class="card">
 <h2>2. FADEC Logic</h2>
-<div class="logic">
-
-<p><span>Fuel Flow Formula:</span> Wf = Wa / 15</p>
-<p>The system automatically adjusts fuel based on airflow demand for efficient combustion.</p>
-
-<p><span>Throttle Response:</span></p>
-<p>Increasing throttle raises engine RPM, airflow, and fuel injection rate.</p>
-
-<p><span>Fan & Compressor Control:</span></p>
-<p>FADEC regulates N1 fan speed to maintain stable thrust output.</p>
-
-<p><span>Thermal Protection:</span></p>
-<p>If exhaust temperature exceeds safe limits, the system triggers warnings and limits performance.</p>
-
-<p><span>System Intelligence:</span></p>
-<p>All calculations are handled digitally in real-time for safety and efficiency.</p>
-
-</div>
+<p><b style="color:#22d3ee">Fuel Flow:</b> Wf = Wa / 15</p>
+<p>Throttle increases airflow, fuel and RPM automatically.</p>
+<p>FADEC controls fan speed and temperature in real time.</p>
+<p>Overheat protection activates when limits are exceeded.</p>
 </div>
 
-<!-- OUTPUT -->
 <div class="card">
 <h2>3. Engine Output</h2>
 
@@ -262,13 +322,11 @@ max-height:300px;
 
 </div>
 
-<!-- STATUS -->
 <div class="card statusBox">
-<h2>4. System Status</h2>
+<h2>System Status</h2>
 <div id="topStatus" class="statusMain">ENGINE OFF</div>
 </div>
 
-<!-- MEMBERS RESTORED -->
 <div class="card members">
 <h2>Group Members</h2>
 <ul>
@@ -281,8 +339,7 @@ max-height:300px;
 </ul>
 </div>
 
-<!-- CODE -->
-<div class="card" style="margin-top:20px">
+<div class="card">
 <h2>Code View</h2>
 <pre id="code"></pre>
 </div>
