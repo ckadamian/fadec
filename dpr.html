@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FADEC Control System Dashboard</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+
+body{
+font-family:'Segoe UI',sans-serif;
+background:linear-gradient(135deg,#0b1220,#111827,#1e293b);
+color:#fff;
+min-height:100vh;
+}
+
+.container{max-width:1400px;margin:auto;padding:25px;}
+
+.header{
+background:rgba(255,255,255,0.05);
+border:1px solid rgba(255,255,255,0.08);
+backdrop-filter:blur(12px);
+border-radius:25px;
+padding:25px;
+display:flex;
+gap:18px;
+align-items:center;
+}
+
+.logo{
+width:75px;height:75px;
+border-radius:50%;
+object-fit:cover;
+border:3px solid #38bdf8;
+}
+
+.header h1{font-size:32px;font-weight:800;}
+.sub{color:#94a3b8;margin-top:5px;}
+
+.grid{
+margin-top:22px;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(340px,1fr));
+gap:20px;
+}
+
+.card{
+background:rgba(255,255,255,0.05);
+border:1px solid rgba(255,255,255,0.08);
+backdrop-filter:blur(12px);
+border-radius:22px;
+padding:20px;
+}
+
+.card h2{color:#38bdf8;margin-bottom:15px;}
+
+label{display:block;margin:10px 0 6px;font-weight:600;}
+
+input[type=range]{width:100%;accent-color:#38bdf8;}
+
+.bar{height:10px;background:#1f2937;border-radius:8px;overflow:hidden;}
+
+.fill{height:100%;width:0;background:linear-gradient(90deg,#38bdf8,#06b6d4);transition:.3s;}
+
+.value{color:#cbd5e1;margin-top:4px;}
+
+.engine{width:100%;border-radius:15px;margin-bottom:12px;}
+
+.gauge{width:250px;height:250px;border-radius:50%;
+background:radial-gradient(circle,#020617 55%,#334155 56%,#0f172a 65%,#475569 66%,#0f172a 72%);
+position:relative;margin:auto;}
+
+.needle{
+position:absolute;width:110px;height:4px;
+background:#ef4444;top:123px;left:125px;
+transform-origin:left center;
+transform:rotate(-130deg);
+}
+
+.center-dot{
+position:absolute;width:18px;height:18px;
+background:#fff;border-radius:50%;
+top:116px;left:116px;
+}
+
+.big{font-size:36px;font-weight:800;text-align:center;margin-top:10px;}
+
+.warning{
+margin-top:12px;
+padding:12px;
+border-radius:10px;
+text-align:center;
+background:#7f1d1d;
+color:#fecaca;
+display:none;
+font-weight:700;
+}
+
+/* FADEC LOGIC RESTORED STYLE */
+.logic p{
+line-height:1.7;
+margin-bottom:10px;
+color:#e2e8f0;
+}
+
+.logic span{
+color:#22d3ee;
+font-weight:700;
+}
+
+/* SWITCH */
+.switchBox{
+display:flex;
+justify-content:center;
+align-items:center;
+gap:10px;
+margin-top:15px;
+}
+
+.switch{
+width:70px;height:34px;
+background:#334155;
+border-radius:50px;
+position:relative;
+cursor:pointer;
+}
+
+.knob{
+width:28px;height:28px;
+background:#fff;
+border-radius:50%;
+position:absolute;
+top:3px;left:4px;
+transition:.3s;
+}
+
+.switch.active{background:#22c55e;}
+.switch.active .knob{left:38px;}
+
+/* STATUS */
+.statusBox{text-align:center;margin-top:20px;}
+.statusMain{
+padding:16px;
+border-radius:12px;
+font-weight:900;
+background:linear-gradient(90deg,#22c55e,#16a34a);
+}
+
+/* MEMBERS RESTORED */
+.members{
+margin-top:20px;
+}
+
+.members ul{
+list-style:none;
+}
+
+.members li{
+padding:8px 0;
+border-bottom:1px solid rgba(255,255,255,.08);
+}
+
+pre{
+background:#020617;
+color:#38bdf8;
+padding:15px;
+border-radius:15px;
+overflow:auto;
+max-height:300px;
+}
+
+.footer{text-align:center;margin-top:25px;color:#64748b;}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="header">
+<img src="dprlogo.jpg" class="logo">
+<div>
+<h1>FADEC Control System Dashboard</h1>
+<p class="sub"></p>
+</div>
+</div>
+
+<!-- ENGINE SWITCH -->
+<div class="switchBox">
+<span>OFF</span>
+<div class="switch" id="engineSwitch" onclick="toggleEngine()">
+<div class="knob"></div>
+</div>
+<span>ON</span>
+</div>
+
+<div class="grid">
+
+<!-- INPUT -->
+<div class="card">
+<h2>1. Engine Inputs</h2>
+<img class="engine" src="gep.jpeg">
+
+<label>Throttle</label>
+<input type="range" id="throttle" min="0" max="100" value="50">
+
+<label>Air Flow</label>
+<div class="value" id="airTxt">0</div>
+<div class="bar"><div class="fill" id="airBar"></div></div>
+
+<label>Fuel Flow</label>
+<div class="value" id="fuelTxt">0</div>
+<div class="bar"><div class="fill" id="fuelBar"></div></div>
+
+<label>Fan Speed</label>
+<div class="value" id="fanTxt">0</div>
+<div class="bar"><div class="fill" id="fanBar"></div></div>
+
+<label>Temperature</label>
+<div class="value" id="tempTxt">0 °C</div>
+<div class="bar"><div class="fill" id="tempBar"></div></div>
+</div>
+
+<!-- FADEC LOGIC RESTORED -->
+<div class="card">
+<h2>2. FADEC Logic</h2>
+<div class="logic">
+
+<p><span>Fuel Flow Formula:</span> Wf = Wa / 15</p>
+<p>The system automatically adjusts fuel based on airflow demand for efficient combustion.</p>
+
+<p><span>Throttle Response:</span></p>
+<p>Increasing throttle raises engine RPM, airflow, and fuel injection rate.</p>
+
+<p><span>Fan & Compressor Control:</span></p>
+<p>FADEC regulates N1 fan speed to maintain stable thrust output.</p>
+
+<p><span>Thermal Protection:</span></p>
+<p>If exhaust temperature exceeds safe limits, the system triggers warnings and limits performance.</p>
+
+<p><span>System Intelligence:</span></p>
+<p>All calculations are handled digitally in real-time for safety and efficiency.</p>
+
+</div>
+</div>
+
+<!-- OUTPUT -->
+<div class="card">
+<h2>3. Engine Output</h2>
+
+<div class="gauge">
+<div class="needle" id="needle"></div>
+<div class="center-dot"></div>
+</div>
+
+<div class="big"><span id="egtTxt">0</span>°C</div>
+
+<div class="warning" id="warnBox">OVERHEAT WARNING</div>
+</div>
+
+</div>
+
+<!-- STATUS -->
+<div class="card statusBox">
+<h2>4. System Status</h2>
+<div id="topStatus" class="statusMain">ENGINE OFF</div>
+</div>
+
+<!-- MEMBERS RESTORED -->
+<div class="card members">
+<h2>Group Members</h2>
+<ul>
+<li>Cedric Kien Damian</li>
+<li>Cyruz Maglangue</li>
+<li>Don Ralf Vicente</li>
+<li>Lhenard Manapat</li>
+<li>Ralph Justine DelaCruz</li>
+<li>Paolo Valondo</li>
+</ul>
+</div>
+
+<!-- CODE -->
+<div class="card" style="margin-top:20px">
+<h2>Code View</h2>
+<pre id="code"></pre>
+</div>
+
+<div class="footer">FADEC Dashboard Simulation</div>
+
+</div>
+
+<script>
+
+let engineOn=false;
+
+function toggleEngine(){
+engineOn=!engineOn;
+document.getElementById("engineSwitch").classList.toggle("active");
+sim();
+}
+
+function sim(){
+
+let t=engineOn?+document.getElementById("throttle").value:0;
+
+let air=t*2;
+let fuel=air/15;
+let fan=t*90;
+let temp=200+t*6;
+let egt=temp;
+
+document.getElementById("airTxt").textContent=air.toFixed(1);
+document.getElementById("fuelTxt").textContent=fuel.toFixed(2);
+document.getElementById("fanTxt").textContent=fan.toFixed(0);
+document.getElementById("tempTxt").textContent=temp.toFixed(1);
+document.getElementById("egtTxt").textContent=egt.toFixed(0);
+
+document.getElementById("airBar").style.width=t+"%";
+document.getElementById("fuelBar").style.width=(t*0.8)+"%";
+document.getElementById("fanBar").style.width=Math.min(fan/100,100)+"%";
+document.getElementById("tempBar").style.width=Math.min(temp/8,100)+"%";
+
+let angle=-130+(Math.min(egt,1400)/1400)*260;
+document.getElementById("needle").style.transform="rotate("+angle+"deg)";
+
+let status=document.getElementById("topStatus");
+
+if(!engineOn){
+status.textContent="ENGINE OFF";
+document.getElementById("warnBox").style.display="none";
+}
+else if(egt>700){
+status.textContent="OVERHEAT WARNING";
+document.getElementById("warnBox").style.display="block";
+}
+else{
+status.textContent="ENGINE RUNNING NORMAL";
+document.getElementById("warnBox").style.display="none";
+}
+
+document.getElementById("code").textContent=document.documentElement.outerHTML;
+}
+
+document.getElementById("throttle").addEventListener("input",sim);
+sim();
+
+</script>
+
+</body>
+</html>
